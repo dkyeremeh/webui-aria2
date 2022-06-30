@@ -3,7 +3,7 @@ services:
   webui:
     build:
       context: "./"
-      dockerfile: ".docker/Dockerfile"
+      dockerfile: "docker/Dockerfile"
     image: webui-aria2
     restart: unless-stopped
     volumes:

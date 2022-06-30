@@ -11,15 +11,17 @@ RUN apt-get update \
 ADD ./docs /webui-aria2
 
 # gosu install latest
-RUN GITHUB_REPO="https://github.com/tianon/gosu" \
-  && LATEST=`curl -s  $GITHUB_REPO"/releases/latest" | grep -Eo "[0-9].[0-9]*"` \
-  && curl -L $GITHUB_REPO"/releases/download/"$LATEST"/gosu-amd64" > /usr/local/bin/gosu \
-  && chmod +x /usr/local/bin/gosu
+RUN ARCH=$(dpkg --print-architecture) \
+  && GOSUDO_REPO=https://github.com/tianon/gosu \
+  && LATEST=$(curl -sL $GOSUDO_REPO/releases/latest | grep -Eo "[0-9]\.[0-9]+" | head -n1) \
+  && curl -Ls "$GOSUDO_REPO/releases/download/$LATEST/gosu-$ARCH" > /usr/local/bin/gosu \
+  && chmod +x ./usr/local/bin/gosu
 
 # goreman supervisor install latest
-RUN GITHUB_REPO="https://github.com/mattn/goreman" \
-  && LATEST=`curl -s  $GITHUB_REPO"/releases/latest" | grep -Eo "v[0-9]*.[0-9]*.[0-9]*"` \
-  && curl -L $GITHUB_REPO"/releases/download/"$LATEST"/goreman_"$LATEST"_linux_amd64.tar.gz" > goreman.tar.gz \
+RUN ARCH=$(dpkg --print-architecture) \
+  && GOREMAN_REPO=https://github.com/mattn/goreman \
+  && LATEST=$(curl -sL  $GOREMAN_REPO/releases/latest | grep -Eo "v[0-9]+.[0-9]+.[0-9]+" | head -n1) \
+  && curl -Ls $GOREMAN_REPO"/releases/download/"$LATEST"/goreman_"$LATEST"_linux_$ARCH.tar.gz" > goreman.tar.gz \
   && tar xvf goreman.tar.gz && mv /goreman*/goreman /usr/local/bin/goreman && rm -R goreman*
 
 # goreman setup
