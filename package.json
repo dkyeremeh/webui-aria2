@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack -d --watch --progress & node node-server",
+    "start:docker": "docker compose",
     "build": "webpack -p --progress",
     "analyze": "webpack -p --profile --json > stats.json && webpack-bundle-analyzer stats.json ./docs -p 9999",
     "format": "prettier -l --write  \"**/*{js,scss}\" "
@@ -35,7 +36,6 @@
     "jquery": "^3.3.1",
     "lodash": "^4.17.10",
     "mini-css-extract-plugin": "^0.4.2",
-    "node-sass": "^4.9.3",
     "postcss-loader": "^3.0.0",
     "sass-loader": "^7.1.0",
     "webpack": "^4.17.1",
