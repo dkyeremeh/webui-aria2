@@ -1,12 +1,12 @@
-FROM debian:8
+FROM debian:latest
 
 # less priviledge user, the id should map the user the downloaded files belongs to
 RUN groupadd -r dummy && useradd -r -g dummy dummy -u 1000
 
 # webui + aria2
 RUN apt-get update \
-	&& apt-get install -y aria2 busybox curl \
-	&& rm -rf /var/lib/apt/lists/*
+  && apt-get install -y aria2 busybox curl \
+  && rm -rf /var/lib/apt/lists/*
 
 ADD ./docs /webui-aria2
 
